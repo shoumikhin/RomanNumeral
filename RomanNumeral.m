@@ -56,65 +56,44 @@
 //------------------------------------------------------------------------------
 - (NSString *)encodeRomanDigit:(NSInteger)value withBase:(NSUInteger)base
 {
-    NSString *one = @"";
-    NSString *five = @"";
-    NSString *ten = @"";
-
     switch (base)
     {
         case 1 :
 
-            one = @"I";
-            five = @"V";
-            ten = @"X";
-
-            break;
+            return [self encodeRomanDigit:value one:@"I" five:@"V" ten:@"X"];
 
         case 10 :
 
-            one = @"X";
-            five = @"L";
-            ten = @"C";
-
-            break;
+            return [self encodeRomanDigit:value one:@"X" five:@"L" ten:@"C"];
 
 
         case 100 :
 
-            one = @"C";
-            five = @"D";
-            ten = @"M";
-
-            break;
-
+            return [self encodeRomanDigit:value one:@"C" five:@"D" ten:@"M"];
+            
         case 1000 :
 
-            one = @"M";
-
-            break;
+            return [self encodeRomanDigit:value one:@"M" five:@"" ten:@""];
     }
 
-    return [self encodeRomanDigit:value one:one five:five ten:ten];
+    return "";
 }
 //------------------------------------------------------------------------------
 - (NSString *)romanNumeralStringValue
 {
     NSMutableString *ret = @"".mutableCopy;
     NSUInteger value = self.unsignedIntegerValue;
-    NSUInteger const ROMAN_NUMBER_MAX = 3999;
-
-    if (value > ROMAN_NUMBER_MAX)
-        return ret;
-
     NSUInteger base = 10;
     NSUInteger currentBase = 1;
+    NSUInteger const ROMAN_NUMBER_MAX = 4000;
 
-    do
-    {
-        [ret insertString:[self encodeRomanDigit:value % base withBase:currentBase] atIndex:0];
-        currentBase *= base;
-    }
-    while (value /= base);
+    if (value < ROMAN_NUMBER_MAX)
+      do
+      {
+          [ret insertString:[self encodeRomanDigit:value % base withBase:currentBase] atIndex:0];
+          currentBase *= base;
+      }
+      while (value /= base);
 
     return ret;
 }
