@@ -54,23 +54,23 @@
     return @"";
 }
 //------------------------------------------------------------------------------
-- (NSString *)encodeRomanDigit:(NSInteger)value withBase:(NSUInteger)base
+- (NSString *)encodeRomanDigit:(NSInteger)value withBase:(NSUInteger)digitPosition
 {
-    switch (base)
+    switch (digitPosition)
     {
-        case 1 :
+        case 0 :
 
             return [self encodeRomanDigit:value one:@"I" five:@"V" ten:@"X"];
 
-        case 10 :
+        case 1 :
 
             return [self encodeRomanDigit:value one:@"X" five:@"L" ten:@"C"];
 
-        case 100 :
+        case 2 :
 
             return [self encodeRomanDigit:value one:@"C" five:@"D" ten:@"M"];
             
-        case 1000 :
+        case 3 :
 
             return [self encodeRomanDigit:value one:@"M" five:@"" ten:@""];
     }
@@ -83,14 +83,14 @@
     NSMutableString *ret = @"".mutableCopy;
     NSUInteger value = self.unsignedIntegerValue;
     NSUInteger base = 10;
-    NSUInteger currentDigit = 0;
+    NSUInteger digitPosition = 0;
     NSUInteger const ROMAN_NUMBER_MAX = 4000;
 
     if (value < ROMAN_NUMBER_MAX)
       do
       {
-          [ret insertString:[self encodeRomanDigit:value % base withBase:currentDigit] atIndex:0];
-          currentDigit++;
+          [ret insertString:[self encodeRomanDigit:value % base withBase:digitPosition] atIndex:0];
+          digitPosition++;
       }
       while (value /= base);
 
