@@ -154,7 +154,7 @@
 
     [self getCharacters:buffer range:NSMakeRange(0, length)];
 
-    for(int i = 0; i < length; ++i)
+    for (int i = 0; i < length; ++i)
     {
         NSInteger current = [self decodeRomanDigit:buffer[i]];
         NSInteger next = i + 1 < length ? [self decodeRomanDigit:buffer[i + 1]] : 0;
