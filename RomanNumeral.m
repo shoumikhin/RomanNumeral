@@ -76,7 +76,7 @@
             return [self encodeRomanDigit:value one:@"M" five:@"" ten:@""];
     }
 
-    return "";
+    return @"";
 }
 //------------------------------------------------------------------------------
 - (NSString *)romanNumeralStringValue
