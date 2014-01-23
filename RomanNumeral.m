@@ -83,14 +83,14 @@
     NSMutableString *ret = @"".mutableCopy;
     NSUInteger value = self.unsignedIntegerValue;
     NSUInteger base = 10;
-    NSUInteger currentBase = 1;
+    NSUInteger currentDigit = 0;
     NSUInteger const ROMAN_NUMBER_MAX = 4000;
 
     if (value < ROMAN_NUMBER_MAX)
       do
       {
-          [ret insertString:[self encodeRomanDigit:value % base withBase:currentBase] atIndex:0];
-          currentBase *= base;
+          [ret insertString:[self encodeRomanDigit:value % base withBase:currentDigit] atIndex:0];
+          currentDigit++;
       }
       while (value /= base);
 
@@ -156,16 +156,16 @@
 
     for (int i = 0; i < length; ++i)
     {
-        NSInteger current = [self decodeRomanDigit:buffer[i]];
-        NSInteger next = i + 1 < length ? [self decodeRomanDigit:buffer[i + 1]] : 0;
+        NSInteger currentDigit = [self decodeRomanDigit:buffer[i]];
+        NSInteger nextDigit = i + 1 < length ? [self decodeRomanDigit:buffer[i + 1]] : 0;
 
-        if (next > current)
+        if (nextDigit > currentDigit)
         {
-            ret += next - current;
-            ++i;
+            ret += nextDigit - currentDigit;
+            i++;
         }
         else
-            ret += current;
+            ret += currentDigit;
     }
 
     return ret;
