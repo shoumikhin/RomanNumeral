@@ -66,7 +66,6 @@
 
             return [self encodeRomanDigit:value one:@"X" five:@"L" ten:@"C"];
 
-
         case 100 :
 
             return [self encodeRomanDigit:value one:@"C" five:@"D" ten:@"M"];
